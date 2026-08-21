@@ -4,6 +4,6 @@
   "private": true,
   "description": "Página web de Oilart, aceite de oliva virgen extra",
   "dependencies": {
-    "@netlify/blobs": "^7.6.0"
+    "@netlify/blobs": "^11.0.1"
   }
 }
