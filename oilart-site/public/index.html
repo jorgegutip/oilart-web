@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oilart — Aceite de Oliva Virgen Extra</title>
+<meta name="description" content="Oilart. Aceite de oliva virgen extra premium, envasado en cerámica hecha a mano. Producto de España.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --ink:#211E15;
+    --olive:#565F3B;
+    --olive-deep:#333823;
+    --olive-pale:#9AA07A;
+    --clay:#BD7E62;
+    --clay-deep:#8C5B43;
+    --gold:#A6813C;
+    --sand:#EFE7D3;
+    --paper:#FAF6EC;
+    --line: rgba(33,30,21,0.14);
+    --line-soft: rgba(250,246,236,0.22);
+    --shadow: 0 30px 60px -25px rgba(33,30,21,0.35);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Manrope', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  h1,h2,h3{font-family:'Fraunces', serif; margin:0; font-weight:600; letter-spacing:-0.01em;}
+  p{margin:0;}
+  button{font-family:inherit;}
+
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px;}
+  .eyebrow{
+    font-family:'Manrope', sans-serif;
+    font-size:12.5px;
+    font-weight:700;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    opacity:0.72;
+  }
+
+  /* ---------- Stripe divider signature ---------- */
+  .stripe-divider{height:14px;width:100%;}
+  .stripe-divider[data-tone="olive"]{background:repeating-linear-gradient(90deg, var(--olive) 0 20px, var(--paper) 20px 40px);}
+  .stripe-divider[data-tone="clay"]{background:repeating-linear-gradient(90deg, var(--clay) 0 20px, var(--paper) 20px 40px);}
+  .stripe-divider[data-tone="gold"]{background:repeating-linear-gradient(90deg, var(--gold) 0 20px, var(--paper) 20px 40px);}
+
+  /* ---------- Nav ---------- */
+  #navbar{
+    position:fixed; top:0; left:0; right:0; z-index:200;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 32px;
+    transition:background .4s ease, padding .4s ease, box-shadow .4s ease;
+  }
+  #navbar.solid{
+    background:rgba(33,30,21,0.92);
+    backdrop-filter:blur(6px);
+    padding:14px 32px;
+    box-shadow:0 8px 24px rgba(0,0,0,0.18);
+  }
+  .nav-mark{
+    font-family:'Fraunces', serif; font-weight:600; font-size:22px;
+    letter-spacing:0.03em; color:#fff; text-decoration:none;
+  }
+  .nav-links{display:flex; gap:34px; list-style:none; margin:0; padding:0;}
+  .nav-links a{
+    color:#fff; text-decoration:none; font-size:13.5px; font-weight:600;
+    letter-spacing:0.06em; text-transform:uppercase; opacity:0.85;
+    padding-bottom:4px; border-bottom:1px solid transparent; transition:opacity .2s, border-color .2s;
+  }
+  .nav-links a:hover, .nav-links a:focus-visible{opacity:1; border-color:rgba(255,255,255,0.6);}
+  .nav-toggle{display:none;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative; min-height:100svh; display:flex; align-items:flex-end;
+    background:linear-gradient(0deg, rgba(20,18,12,0.86) 0%, rgba(20,18,12,0.35) 46%, rgba(20,18,12,0.28) 100%), url('images/hero.jpg') center 30%/cover no-repeat;
+    color:#fff; padding:140px 0 0 0;
+  }
+  .hero-inner{padding:0 32px 90px; max-width:1240px; margin:0 auto; width:100%;}
+  .hero-eyebrow{color:var(--sand); opacity:0.9;}
+  .hero h1{
+    font-size:clamp(64px, 11vw, 148px);
+    line-height:0.92;
+    margin:18px 0 22px;
+    color:#fff;
+  }
+  .hero-sub{
+    max-width:520px; font-size:18px; font-weight:400; color:rgba(255,255,255,0.88);
+    margin-bottom:34px;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:15px 28px; border-radius:100px; border:1px solid currentColor;
+    text-decoration:none; font-size:13.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    transition:transform .25s ease, background .25s ease, color .25s ease;
+    cursor:pointer; background:none;
+  }
+  .btn-light{color:#fff;}
+  .btn-light:hover{background:#fff; color:var(--ink); transform:translateY(-2px);}
+  .btn-dark{color:var(--ink); border-color:var(--ink);}
+  .btn-dark:hover{background:var(--ink); color:var(--paper); transform:translateY(-2px);}
+  .btn-fill{background:var(--olive); color:#fff; border-color:var(--olive);}
+  .btn-fill:hover{background:var(--olive-deep); border-color:var(--olive-deep); transform:translateY(-2px);}
+
+  .scroll-cue{
+    position:absolute; right:32px; bottom:34px; display:flex; flex-direction:column; align-items:center; gap:10px;
+    color:rgba(255,255,255,0.75); font-size:11.5px; letter-spacing:0.2em; text-transform:uppercase;
+  }
+  .scroll-cue span{writing-mode:vertical-rl;}
+  .scroll-cue i{
+    width:1px; height:46px; background:rgba(255,255,255,0.5); position:relative; overflow:hidden;
+  }
+  .scroll-cue i::after{
+    content:''; position:absolute; top:-100%; left:0; width:100%; height:100%; background:#fff;
+    animation:scrollcue 2.2s ease-in-out infinite;
+  }
+  @keyframes scrollcue{ 0%{top:-100%;} 60%{top:100%;} 100%{top:100%;} }
+
+  /* ---------- Section shell ---------- */
+  section{padding:118px 0;}
+  .section-head{max-width:640px; margin-bottom:56px;}
+  .section-head h2{font-size:clamp(34px,4.4vw,52px); margin-top:14px;}
+
+  /* ---------- Origen ---------- */
+  .origen{background:var(--olive-deep); color:var(--paper); overflow:hidden;}
+  .origen .wrap{display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;}
+  .origen-text .eyebrow{color:var(--olive-pale);}
+  .origen-text h2{color:#fff;}
+  .origen-text p{margin-top:22px; font-size:17px; color:rgba(250,246,236,0.82); max-width:460px;}
+  .origen-text p + p{margin-top:16px;}
+  .origen-media{position:relative; border-radius:6px; overflow:hidden; box-shadow:var(--shadow);}
+  .origen-media img{aspect-ratio:1/1; object-fit:cover;}
+  .origen-quote{
+    margin-top:28px; padding-left:18px; border-left:2px solid var(--gold);
+    font-family:'Fraunces', serif; font-style:italic; font-size:19px; color:var(--sand);
+  }
+
+  /* ---------- Colección ---------- */
+  .coleccion{background:var(--paper);}
+  .coleccion-hero-img{border-radius:6px; overflow:hidden; box-shadow:var(--shadow); margin-bottom:18px;}
+  .coleccion-hero-cap{display:flex; justify-content:space-between; font-size:13.5px; opacity:0.65; margin-bottom:70px; padding-top:2px;}
+  .coleccion-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px;}
+  .col-card{}
+  .col-card-img{border-radius:6px; overflow:hidden; box-shadow:var(--shadow); margin-bottom:20px; position:relative;}
+  .col-card-img img{aspect-ratio:3/4; object-fit:cover;}
+  .col-card-tag{
+    position:absolute; top:16px; left:16px; background:rgba(250,246,236,0.92); color:var(--ink);
+    font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:6px 12px; border-radius:100px;
+  }
+  .col-card h3{font-size:22px; font-weight:500;}
+  .col-card p{margin-top:8px; font-size:15px; opacity:0.72; max-width:38ch;}
+
+  /* ---------- Productos (gestionados desde el panel) ---------- */
+  .productos{background:var(--sand);}
+  .productos-head{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap;}
+  .prod-grid{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:30px; margin-top:56px;
+  }
+  .prod-card{
+    background:var(--paper); border-radius:8px; overflow:hidden; box-shadow:0 20px 40px -28px rgba(33,30,21,0.35);
+    display:flex; flex-direction:column;
+  }
+  .prod-card-img{width:100%; aspect-ratio:4/5; background:var(--sand); overflow:hidden;}
+  .prod-card-img img{width:100%; height:100%; object-fit:cover;}
+  .prod-card-body{padding:20px 22px 24px;}
+  .prod-card-body h3{font-size:19px; font-weight:500;}
+  .prod-card-body p{margin-top:8px; font-size:14.5px; opacity:0.72;}
+  .prod-empty{
+    grid-column:1/-1; text-align:center; padding:70px 20px; border:1px dashed var(--line);
+    border-radius:8px; opacity:0.75; font-size:15px;
+  }
+  .prod-empty strong{display:block; font-family:'Fraunces', serif; font-size:22px; font-weight:500; margin-bottom:10px; opacity:1;}
+  .prod-loading{grid-column:1/-1; text-align:center; padding:60px 20px; opacity:0.55; font-size:14px;}
+
+  /* ---------- Contacto ---------- */
+  .contacto{background:var(--ink); color:var(--paper); text-align:center;}
+  .contacto .wrap{max-width:720px;}
+  .contacto h2{color:#fff; font-size:clamp(36px,5vw,58px);}
+  .contacto p{margin-top:20px; font-size:17px; color:rgba(250,246,236,0.78);}
+  .contacto-cta{margin-top:38px; display:flex; flex-direction:column; align-items:center; gap:16px;}
+  .contacto-note{margin-top:46px; font-size:13px; opacity:0.5; max-width:440px; margin-left:auto; margin-right:auto;}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--ink); color:rgba(250,246,236,0.55); padding:0 0 40px;}
+  footer .wrap{border-top:1px solid var(--line-soft); padding-top:34px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px;}
+  .footer-mark{font-family:'Fraunces', serif; font-size:19px; color:var(--paper); font-weight:600;}
+  .footer-links{display:flex; gap:24px; list-style:none; padding:0; margin:0; flex-wrap:wrap;}
+  .footer-links a{font-size:13px; text-decoration:none; opacity:0.85;}
+  .footer-links a:hover{opacity:1; text-decoration:underline;}
+  .admin-link{
+    display:inline-flex; align-items:center; gap:6px; background:none; border:none; color:inherit;
+    font-size:13px; cursor:pointer; opacity:0.6; font-family:inherit; padding:0;
+  }
+  .admin-link:hover{opacity:1;}
+  .footer-bottom{font-size:12px; opacity:0.5; padding-top:22px; text-align:center;}
+
+  /* ---------- Reveal animation ---------- */
+  .reveal{opacity:0; transform:translateY(26px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- Modal (panel de administración) ---------- */
+  .modal{
+    position:fixed; inset:0; z-index:500; display:flex; align-items:center; justify-content:center;
+    padding:24px; background:rgba(20,18,12,0.7); backdrop-filter:blur(4px);
+    opacity:0; pointer-events:none; transition:opacity .3s ease;
+  }
+  .modal.open{opacity:1; pointer-events:auto;}
+  .modal-panel{
+    background:var(--paper); color:var(--ink); width:100%; max-width:560px; max-height:88vh; overflow-y:auto;
+    border-radius:10px; padding:36px 36px 30px; position:relative; box-shadow:0 40px 80px rgba(0,0,0,0.4);
+  }
+  .modal-close{
+    position:absolute; top:20px; right:20px; background:none; border:none; font-size:22px; cursor:pointer;
+    color:var(--ink); opacity:0.5; line-height:1; padding:4px;
+  }
+  .modal-close:hover{opacity:1;}
+  .modal-panel h3{font-size:26px; margin-bottom:6px;}
+  .modal-sub{font-size:14px; opacity:0.65; margin-bottom:26px;}
+  .field{margin-bottom:18px;}
+  .field label{display:block; font-size:12.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; opacity:0.65; margin-bottom:8px;}
+  .field input[type="text"], .field textarea{
+    width:100%; border:1px solid var(--line); background:#fff; border-radius:6px; padding:12px 14px;
+    font-family:inherit; font-size:14.5px; color:var(--ink); resize:vertical;
+  }
+  .field input:focus-visible, .field textarea:focus-visible{outline:2px solid var(--olive); outline-offset:1px;}
+  .field-file{
+    border:1px dashed var(--line); border-radius:6px; padding:16px; text-align:center; cursor:pointer; font-size:13.5px; opacity:0.75;
+  }
+  .file-preview{margin-top:12px; display:flex; align-items:center; gap:12px;}
+  .file-preview img{width:56px; height:56px; object-fit:cover; border-radius:5px;}
+  .form-msg{font-size:13px; margin-top:6px; min-height:18px;}
+  .form-msg.error{color:#a5372a;}
+  .form-msg.ok{color:var(--olive-deep);}
+  .admin-list{margin-top:30px; border-top:1px solid var(--line); padding-top:22px;}
+  .admin-list h4{font-family:'Manrope',sans-serif; font-size:12.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; opacity:0.6; margin-bottom:14px;}
+  .admin-row{display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--line);}
+  .admin-row img{width:44px; height:44px; object-fit:cover; border-radius:5px; flex-shrink:0;}
+  .admin-row .ar-name{font-size:14px; font-weight:600; flex:1;}
+  .admin-row button{background:none; border:none; cursor:pointer; font-size:12.5px; opacity:0.55; padding:4px 8px;}
+  .admin-row button:hover{opacity:1;}
+  .admin-empty{font-size:13.5px; opacity:0.55; padding:12px 0;}
+  .admin-logout{margin-top:24px; font-size:12.5px; opacity:0.55; background:none; border:none; cursor:pointer; text-decoration:underline;}
+  .admin-user{font-size:12.5px; opacity:0.6; margin-bottom:20px;}
+
+  @media (max-width:860px){
+    .nav-links{
+      position:fixed; top:0; right:0; height:100svh; width:min(78vw,320px); background:var(--ink);
+      flex-direction:column; padding:100px 32px; gap:24px; transform:translateX(100%); transition:transform .35s ease;
+    }
+    .nav-links.open{transform:translateX(0);}
+    .nav-toggle{
+      display:flex; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; z-index:210; padding:6px;
+    }
+    .nav-toggle span{width:22px; height:2px; background:#fff; display:block;}
+    .origen .wrap{grid-template-columns:1fr; gap:40px;}
+    .origen-media{order:-1;}
+    .coleccion-grid{grid-template-columns:1fr;}
+    section{padding:80px 0;}
+    .wrap{padding:0 22px;}
+    .hero-inner{padding:0 22px 70px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1; transform:none; transition:none;}
+    .scroll-cue i::after{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#inicio" class="nav-mark">OILART</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#origen">Origen</a></li>
+    <li><a href="#coleccion">Colección</a></li>
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<header class="hero" id="inicio">
+  <div class="hero-inner">
+    <p class="hero-eyebrow eyebrow">Aceite de oliva virgen extra · España</p>
+    <h1>OILART</h1>
+    <p class="hero-sub">Cada botella es una pieza de cerámica pintada a mano. Cada gota, la cosecha de un olivar que lleva generaciones dando fruto.</p>
+    <a href="#coleccion" class="btn btn-light">Ver la colección</a>
+  </div>
+  <div class="scroll-cue"><span>Desliza</span><i></i></div>
+</header>
+
+<div class="stripe-divider" data-tone="olive"></div>
+
+<section class="origen" id="origen">
+  <div class="wrap">
+    <div class="origen-text reveal">
+      <p class="eyebrow">El origen</p>
+      <h2>Del olivar a la mesa, sin prisa</h2>
+      <p>En las colinas del sur de España, entre olivos centenarios, seleccionamos a mano cada aceituna en su punto justo de maduración.</p>
+      <p>Prensamos en frío el mismo día de la recolección, para conservar intacto el aroma y el verde intenso que distingue a nuestro aceite. Ningún atajo: solo tierra, tiempo y oficio.</p>
+      <p class="origen-quote">«El arte de lo simple. El sabor de siempre.»</p>
+    </div>
+    <div class="origen-media reveal">
+      <img src="images/origen.jpg" alt="Botella de aceite Oilart frente a un paisaje de olivares del sur de España" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<div class="stripe-divider" data-tone="clay"></div>
+
+<section class="coleccion" id="coleccion">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">La colección</p>
+      <h2>Vestidas como el Mediterráneo</h2>
+    </div>
+
+    <div class="coleccion-hero-img reveal">
+      <img src="images/trio.jpg" alt="Tres botellas cerámicas Oilart en tonos arcilla, oliva y granate" loading="lazy">
+    </div>
+    <div class="coleccion-hero-cap reveal">
+      <span>Arcilla · Oliva · Granate</span>
+      <span>Cerámica pintada a mano</span>
+    </div>
+
+    <div class="coleccion-grid">
+      <div class="col-card reveal">
+        <div class="col-card-img">
+          <span class="col-card-tag">Raya Mostaza</span>
+          <img src="images/mostaza.jpg" alt="Botella Oilart de rayas mostaza sobre lino natural" loading="lazy">
+        </div>
+        <h3>Raya Mostaza</h3>
+        <p>Nota dorada y cálida, pensada para quienes buscan un frutado con carácter.</p>
+      </div>
+      <div class="col-card reveal">
+        <div class="col-card-img">
+          <span class="col-card-tag">Arcilla Mate</span>
+          <img src="images/arcilla.jpg" alt="Botella Oilart de cerámica arcilla mate sobre lino natural" loading="lazy">
+        </div>
+        <h3>Arcilla Mate</h3>
+        <p>La edición más serena de la casa: acabado mate y silueta redondeada, hecha para la mesa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stripe-divider" data-tone="gold"></div>
+
+<section class="productos" id="productos">
+  <div class="wrap">
+    <div class="productos-head reveal">
+      <div class="section-head" style="margin-bottom:0;">
+        <p class="eyebrow">Nuestra gama</p>
+        <h2>Productos</h2>
+      </div>
+      <p style="max-width:360px; font-size:15px; opacity:0.75;">Estas son las referencias disponibles de Oilart. Para pedidos o distribución, contáctanos por correo — esta página no gestiona ventas.</p>
+    </div>
+
+    <div class="prod-grid" id="prodGrid">
+      <div class="prod-loading" id="prodLoading">Cargando productos…</div>
+    </div>
+  </div>
+</section>
+
+<div class="stripe-divider" data-tone="olive"></div>
+
+<section class="contacto" id="contacto">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--olive-pale);">Contacto</p>
+    <h2>Hablemos de aceite</h2>
+    <p>Para pedidos, distribución, prensa o cualquier consulta sobre nuestra gama, escríbenos directamente. Respondemos personalmente a cada correo.</p>
+    <div class="contacto-cta">
+      <a href="mailto:comercial@oilart.es" class="btn btn-light">Escribir a comercial@oilart.es</a>
+    </div>
+    <p class="contacto-note">Esta web es un escaparate de nuestros productos. Todos los pedidos, presupuestos y consultas se gestionan por correo electrónico — aquí no se realizan compras.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="footer-mark">OILART</span>
+    <ul class="footer-links">
+      <li><a href="#origen">Origen</a></li>
+      <li><a href="#coleccion">Colección</a></li>
+      <li><a href="#productos">Productos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li><button class="admin-link" id="openAdmin">🔒 Acceso administrador</button></li>
+    </ul>
+  </div>
+  <p class="footer-bottom">© <span id="year"></span> Oilart — Aceite de oliva virgen extra. Producto de España.</p>
+</footer>
+
+<!-- ===== Panel de administración ===== -->
+<div class="modal" id="adminModal" aria-hidden="true">
+  <div class="modal-panel">
+    <button class="modal-close" id="closeAdmin" aria-label="Cerrar">×</button>
+
+    <h3>Panel de administración</h3>
+    <p class="modal-sub">Añade, edita o retira productos de la gama pública.</p>
+    <p class="admin-user" id="adminUser"></p>
+
+    <form id="productForm">
+      <input type="hidden" id="editId" value="">
+      <div class="field">
+        <label for="pName">Nombre del producto</label>
+        <input type="text" id="pName" placeholder="Ej. Raya Verde Oliva" required>
+      </div>
+      <div class="field">
+        <label for="pDesc">Descripción breve</label>
+        <textarea id="pDesc" rows="3" placeholder="Ej. Frutado suave, edición de cerámica en tonos verdes." required></textarea>
+      </div>
+      <div class="field">
+        <label for="pImage">Imagen del producto</label>
+        <div class="field-file" id="fileTrigger">Toca para elegir una foto (se optimiza automáticamente)</div>
+        <input type="file" id="pImage" accept="image/*" style="display:none;">
+        <div class="file-preview" id="filePreview" style="display:none;">
+          <img id="filePreviewImg" alt="">
+          <span id="filePreviewName" style="font-size:13px; opacity:0.7;"></span>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-fill" id="submitBtn" style="width:100%; justify-content:center;">Publicar producto</button>
+      <p class="form-msg" id="formMsg"></p>
+    </form>
+
+    <div class="admin-list">
+      <h4>Productos publicados</h4>
+      <div id="adminList"></div>
+    </div>
+
+    <button class="admin-logout" id="logoutBtn">Cerrar sesión de administrador</button>
+  </div>
+</div>
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const API_URL = '/.netlify/functions/products';
+let products = [];
+
+/* ---------- Llamadas a la función serverless ---------- */
+async function authHeader(){
+  const user = netlifyIdentity.currentUser();
+  if (!user) return {};
+  const token = await user.jwt();
+  return { 'Authorization': 'Bearer ' + token };
+}
+
+async function fetchProducts(){
+  try{
+    const res = await fetch(API_URL);
+    if (!res.ok) return [];
+    return await res.json();
+  }catch(e){ return []; }
+}
+
+async function postProduct(action, product){
+  const headers = { 'Content-Type': 'application/json', ...(await authHeader()) };
+  const res = await fetch(API_URL, { method: 'POST', headers, body: JSON.stringify({ action, product }) });
+  if (!res.ok){
+    const err = await res.json().catch(()=>({error:'Error desconocido'}));
+    throw new Error(err.error || 'No se pudo guardar.');
+  }
+  return await res.json();
+}
+
+async function deleteProductRemote(id){
+  const headers = { 'Content-Type': 'application/json', ...(await authHeader()) };
+  const res = await fetch(API_URL, { method: 'DELETE', headers, body: JSON.stringify({ id }) });
+  if (!res.ok){
+    const err = await res.json().catch(()=>({error:'Error desconocido'}));
+    throw new Error(err.error || 'No se pudo eliminar.');
+  }
+  return await res.json();
+}
+
+async function loadProducts(){
+  products = await fetchProducts();
+  renderPublicGrid();
+  renderAdminList();
+}
+
+function renderPublicGrid(){
+  const grid = document.getElementById('prodGrid');
+  if (!products || products.length === 0){
+    grid.innerHTML = `
+      <div class="prod-empty">
+        <strong>Estamos preparando esta sección</strong>
+        Muy pronto verás aquí toda la gama Oilart. Mientras tanto, escríbenos si buscas una referencia concreta.
+      </div>`;
+    return;
+  }
+  grid.innerHTML = products.map(p => `
+    <div class="prod-card">
+      <div class="prod-card-img"><img src="${p.imagen}" alt="${escapeHtml(p.nombre)}" loading="lazy"></div>
+      <div class="prod-card-body">
+        <h3>${escapeHtml(p.nombre)}</h3>
+        <p>${escapeHtml(p.descripcion)}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderAdminList(){
+  const list = document.getElementById('adminList');
+  if (!products || products.length === 0){
+    list.innerHTML = `<div class="admin-empty">Todavía no has publicado ningún producto.</div>`;
+    return;
+  }
+  list.innerHTML = products.map(p => `
+    <div class="admin-row">
+      <img src="${p.imagen}" alt="">
+      <span class="ar-name">${escapeHtml(p.nombre)}</span>
+      <button type="button" data-edit="${p.id}">Editar</button>
+      <button type="button" data-delete="${p.id}">Eliminar</button>
+    </div>
+  `).join('');
+
+  list.querySelectorAll('[data-delete]').forEach(btn=>{
+    btn.addEventListener('click', () => handleDelete(btn.getAttribute('data-delete')));
+  });
+  list.querySelectorAll('[data-edit]').forEach(btn=>{
+    btn.addEventListener('click', () => editProduct(btn.getAttribute('data-edit')));
+  });
+}
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML;
+}
+
+/* ---------- Redimensionado de imagen en el navegador ---------- */
+function resizeImageFile(file, maxSize){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        let w = img.width, h = img.height;
+        if (w > h && w > maxSize){ h = Math.round(h * (maxSize / w)); w = maxSize; }
+        else if (h >= w && h > maxSize){ w = Math.round(w * (maxSize / h)); h = maxSize; }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', 0.82));
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+let pendingImageDataUrl = null;
+
+document.getElementById('fileTrigger').addEventListener('click', () => {
+  document.getElementById('pImage').click();
+});
+
+document.getElementById('pImage').addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const trigger = document.getElementById('fileTrigger');
+  trigger.textContent = 'Optimizando imagen…';
+  try{
+    pendingImageDataUrl = await resizeImageFile(file, 1000);
+    document.getElementById('filePreview').style.display = 'flex';
+    document.getElementById('filePreviewImg').src = pendingImageDataUrl;
+    document.getElementById('filePreviewName').textContent = file.name;
+    trigger.textContent = 'Toca para elegir otra foto';
+  }catch(err){
+    trigger.textContent = 'No se pudo leer la imagen. Inténtalo de nuevo.';
+  }
+});
+
+document.getElementById('productForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const msg = document.getElementById('formMsg');
+  const submitBtn = document.getElementById('submitBtn');
+  const editId = document.getElementById('editId').value;
+  const nombre = document.getElementById('pName').value.trim();
+  const descripcion = document.getElementById('pDesc').value.trim();
+
+  let imagen = pendingImageDataUrl;
+  if (!imagen && editId){
+    const existing = products.find(p => p.id === editId);
+    imagen = existing ? existing.imagen : null;
+  }
+  if (!imagen){
+    msg.textContent = 'Añade una imagen para el producto.';
+    msg.className = 'form-msg error';
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Guardando…';
+  msg.textContent = '';
+  msg.className = 'form-msg';
+
+  try{
+    const product = { id: editId || undefined, nombre, descripcion, imagen };
+    const updatedList = await postProduct(editId ? 'update' : 'add', product);
+    products = updatedList;
+    msg.textContent = editId ? 'Producto actualizado.' : 'Producto publicado.';
+    msg.className = 'form-msg ok';
+    resetForm();
+    renderPublicGrid();
+    renderAdminList();
+  }catch(err){
+    msg.textContent = err.message;
+    msg.className = 'form-msg error';
+  }finally{
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Publicar producto';
+  }
+});
+
+function resetForm(){
+  document.getElementById('editId').value = '';
+  document.getElementById('pName').value = '';
+  document.getElementById('pDesc').value = '';
+  document.getElementById('pImage').value = '';
+  pendingImageDataUrl = null;
+  document.getElementById('filePreview').style.display = 'none';
+  document.getElementById('fileTrigger').textContent = 'Toca para elegir una foto (se optimiza automáticamente)';
+  document.getElementById('submitBtn').textContent = 'Publicar producto';
+}
+
+function editProduct(id){
+  const p = products.find(p => p.id === id);
+  if (!p) return;
+  document.getElementById('editId').value = p.id;
+  document.getElementById('pName').value = p.nombre;
+  document.getElementById('pDesc').value = p.descripcion;
+  pendingImageDataUrl = p.imagen;
+  document.getElementById('filePreview').style.display = 'flex';
+  document.getElementById('filePreviewImg').src = p.imagen;
+  document.getElementById('filePreviewName').textContent = 'Imagen actual';
+  document.getElementById('submitBtn').textContent = 'Guardar cambios';
+  document.getElementById('productForm').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+async function handleDelete(id){
+  if (!confirm('¿Eliminar este producto de la página?')) return;
+  try{
+    products = await deleteProductRemote(id);
+    renderPublicGrid();
+    renderAdminList();
+  }catch(err){
+    alert(err.message);
+  }
+}
+
+/* ---------- Netlify Identity (login real de administrador) ---------- */
+const adminModal = document.getElementById('adminModal');
+
+function openModal(){
+  adminModal.classList.add('open');
+  adminModal.setAttribute('aria-hidden', 'false');
+  const user = netlifyIdentity.currentUser();
+  document.getElementById('adminUser').textContent = user ? ('Sesión iniciada como ' + user.email) : '';
+}
+function closeModal(){
+  adminModal.classList.remove('open');
+  adminModal.setAttribute('aria-hidden', 'true');
+}
+
+document.getElementById('openAdmin').addEventListener('click', () => {
+  const user = netlifyIdentity.currentUser();
+  if (user){
+    openModal();
+  } else {
+    netlifyIdentity.open('login');
+  }
+});
+document.getElementById('closeAdmin').addEventListener('click', closeModal);
+adminModal.addEventListener('click', (e) => { if (e.target === adminModal) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  netlifyIdentity.logout();
+});
+
+netlifyIdentity.on('init', (user) => {
+  if (user) { /* sesión ya activa, no abrimos el panel automáticamente */ }
+});
+netlifyIdentity.on('login', () => {
+  netlifyIdentity.close();
+  openModal();
+  resetForm();
+});
+netlifyIdentity.on('logout', () => {
+  closeModal();
+});
+netlifyIdentity.init();
+
+/* ---------- Nav scroll state + menú móvil ---------- */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('solid', window.scrollY > 60);
+});
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  const isOpen = navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', String(isOpen));
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+/* ---------- Reveal on scroll ---------- */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('in'); });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+loadProducts();
+</script>
+</body>
+</html>
